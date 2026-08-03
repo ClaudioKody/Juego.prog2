@@ -17,7 +17,11 @@ class MenuState(GameState):
 
     def enter(self):
         print("Entering Menu State")
-        self.stats.high_score = self.stats.load_high_score()
+        try:
+            self.stats.high_score = self.stats.load_high_score()
+        except Exception as e:
+            print(f"Error cargando high score: {e}")
+            self.stats.high_score = 0
 
     def exit(self):
         print("Exiting Menu State")
@@ -45,7 +49,7 @@ class MenuState(GameState):
         for i, option in enumerate(self.options):
             if i == self.selected_index:
                 color = (255, 215, 0) # Dorado al seleccionar
-                text_str = f"▶  {option}  ◀"
+                text_str = f"▶   {option}   ◀"
             else:
                 color = WHITE
                 text_str = option
